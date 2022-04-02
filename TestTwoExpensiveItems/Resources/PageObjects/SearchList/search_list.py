@@ -12,14 +12,16 @@ def find_two_the_most_expensive_items_and_buy_them(elements: List[WebElement]):
     elements_dict = {}
     i = 1
     for element in elements:
-        price = float(element.find_element(By.XPATH, item_price.format(str(i))).text.replace(",", ".").replace(" ", ""))
+        price = float(__find_element(locator=item_price.format(str(i)),
+                                     element=element).
+                      text.replace(",", ".").replace(" ", ""))
         elements_dict.update({i: price})
         i = i + 1
 
     for n in range(2):
         max_val_index = __find_max_val_index(elements_dict=elements_dict)
-        __click_to_by_item(element=elements[max_val_index].find_element(By.XPATH, buy_button_locator.
-                                                                        format(max_val_index)))
+        __click_to_by_item(element=__find_element(locator=buy_button_locator.format(max_val_index),
+                                                  element=elements[max_val_index]))
         del elements_dict[max_val_index]
 
 
@@ -30,3 +32,7 @@ def __click_to_by_item(element: WebElement):
 
 def __find_max_val_index(elements_dict: dict) -> int:
     return max(elements_dict, key=elements_dict.get)
+
+
+def __find_element(locator: str, element: WebElement, by: By = By.XPATH) -> WebElement:
+    return element.find_element(by=by, value=locator)

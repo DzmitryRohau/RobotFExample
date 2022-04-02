@@ -7,7 +7,7 @@ ${search_text}  ssd
 ${items_locator}  //li[contains(@class, 'result__item cr-result__simple ')]
 
 *** Keywords ***
-Input Search Text And Click First Category
+Input Search Text And Click Search Button
     Input text  //input[@id="catalogSearch"]  ${search_text}
     Press Keys  //input[@id="catalogSearch"]/parent::div/button  [Return]
 
